@@ -4,7 +4,7 @@ import Footer from "./components/footer/Footer";
 
 export default function Home() {
   return (
-    <div className="h-full bg-[url('/img/photography-bg.jpg')] bg-cover bg-center overflow-auto slider">
+    <div className="h-full overflow-auto bg-black slider">
       <Navbar />
       <Portfolio />
       <Footer />

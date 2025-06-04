@@ -1,9 +1,21 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
-import React from 'react'
+import React, { useRef } from 'react'
 import Masonry from 'react-masonry-css';
 import Image from 'next/image';
+import LightGalleryComponent from 'lightgallery/react';
+import { LightGallery } from 'lightgallery/lightgallery';
+
+// import styles
+import 'lightgallery/css/lightgallery.css';
+import 'lightgallery/css/lg-zoom.css';
+import 'lightgallery/css/lg-thumbnail.css';
+
+// import plugins
+import lgThumbnail from 'lightgallery/plugins/thumbnail';
+import lgZoom from 'lightgallery/plugins/zoom';
 
 import Img1 from '@/public/img/img-1.jpg';
 import Img2 from '@/public/img/img-2.png';
@@ -30,9 +42,19 @@ const tabs = [
   }
 ]
 
+const images = [
+  Img1,
+  Img2,
+  Img3,
+  Img4,
+  Img5
+]
+
 const Portfolio = () => {
+  const lightboxRef = useRef<LightGallery | null>(null)
+
   return (
-    <main className='grow'>
+    <main className='relative grow z-20'>
       <div className='flex flex-col items-center h-full p-10'>
         <TabGroup className='flex flex-col items-center h-full w-full'>
           <TabList className='flex items-center gap-12'>
@@ -51,12 +73,37 @@ const Portfolio = () => {
           <TabPanels className='w-full max-w-5xl my-6'>
             <TabPanel>
               <Masonry breakpointCols={4} className='flex gap-5' columnClassName=''>
-                <Image src={Img1} alt='placeholder' className='my-5' />
-                <Image src={Img2} alt='placeholder' className='my-5' />
-                <Image src={Img3} alt='placeholder' className='my-5' />
-                <Image src={Img4} alt='placeholder' className='my-5' />
-                <Image src={Img5} alt='placeholder' className='my-5' />
+                {images.map((image, idx) => (
+                  <Image
+                    key={image.src}
+                    src={image} 
+                    alt='placeholder' 
+                    className='my-5 hover:opacity-80 transition-all duration-500 cursor-pointer'
+                    placeholder='blur' 
+                    onClick={() => {
+                      lightboxRef.current?.openGallery(idx);
+                    }}
+                  />
+                ))}
               </Masonry>
+
+              <LightGalleryComponent
+                onInit={(ref) => {
+                  if (ref) {
+                    lightboxRef.current = ref.instance
+                  }
+                }}
+                speed={500}
+                plugins={[lgThumbnail, lgZoom]}
+                dynamic
+                dynamicEl={
+                  images.map(image => ({
+                    src: image.src,
+                    thumb: image.src
+                  }))
+                }
+              >
+              </LightGalleryComponent>
             </TabPanel>
             <TabPanel>Product</TabPanel>
             <TabPanel>Interior</TabPanel>
