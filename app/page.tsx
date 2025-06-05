@@ -1,8 +1,10 @@
+'use client';
 
 import { Inter } from "next/font/google";
 import MultiLayerParallax from "./components/banner/MultiLayerParallax";
 import Image from 'next/image';
 import Link from "next/link";
+import { useEffect } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,6 +16,10 @@ const images = [
 ];
 
 export default function Home() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
   return (
     <main className={`${inter.className} relative`}>
       <MultiLayerParallax />

@@ -1,7 +1,7 @@
 'use client';
 
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import Masonry from 'react-masonry-css';
 import Image from 'next/image';
 import LightGalleryComponent from 'lightgallery/react';
@@ -52,23 +52,26 @@ const images = [
 const Portfolio = () => {
   const lightboxRef = useRef<LightGallery | null>(null)
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className='relative grow pt-[100px] z-20'>
       <div className='relative flex flex-col items-center h-full p-10'>
         <TabGroup className='flex flex-col items-center h-full w-full'>
-          <TabList className='flex items-center gap-12'>
+          <TabList className="flex flex-wrap sm:flex-nowrap items-center gap-4 sm:gap-12">
             {tabs.map((tab) => (
-              <Tab key={tab.key} className='p-2 focus:outline-none font-sans uppercase font-medium cursor-pointer'>
+              <Tab key={tab.key} className="p-1 sm:p-2 text-sm sm:text-base focus:outline-none font-sans uppercase font-medium cursor-pointer">
                 {({ selected }) => (
-                  <span
-                    className={ selected ? 'text-white' : 'text-stone-600'}
-                  >
+                  <span className={selected ? "text-white" : "text-stone-600"}>
                     {tab.display}
                   </span>
                 )}
               </Tab>
             ))}
           </TabList>
+
           <TabPanels className='w-full max-w-5xl my-6'>
             <TabPanel>
               <Masonry
