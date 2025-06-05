@@ -53,8 +53,8 @@ const Portfolio = () => {
   const lightboxRef = useRef<LightGallery | null>(null)
 
   return (
-    <main className='relative grow pt-[100px] z-20'>
-      <div className='flex flex-col items-center h-full p-10'>
+    <div className='relative grow pt-[100px] z-20'>
+      <div className='relative flex flex-col items-center h-full p-10'>
         <TabGroup className='flex flex-col items-center h-full w-full'>
           <TabList className='flex items-center gap-12'>
             {tabs.map((tab) => (
@@ -117,7 +117,7 @@ const Portfolio = () => {
           </TabPanels>
         </TabGroup>
       </div>
-    </main>
+    </div>
   )
 }
 

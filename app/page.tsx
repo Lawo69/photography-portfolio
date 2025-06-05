@@ -15,11 +15,11 @@ const images = [
 
 export default function Home() {
   return (
-    <main className={inter.className}>
+    <main className={`${inter.className} relative`}>
       <MultiLayerParallax />
-      <div className="relative container mx-auto px-6 w-full bg-black">
+      <div className="relative w-full bg-black">
         <div className="absolute -top-30 left-0 w-full h-32 bg-gradient-to-b from-transparent to-black z-20" />
-        <div className="max-w-lg space-y-4 mx-auto py-24 text-neutral-300">
+        <div className="relative max-w-lg px-6 space-y-4 mx-auto py-24 text-neutral-300">
           <p>
             Based in Sri Lanka, Madara is a passionate photographer with an eye for the beauty in both the everyday and the extraordinary. From the vivid textures of nature and the elegance of interior design to the fine details of product photography, Madara captures moments that tell a story.
           </p>
@@ -32,7 +32,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="flex flex-col items-center justify-center">
+      <div className="relative flex flex-col items-center justify-center">
         <div className="relative hidden w-[800px] h-[600px] bg-black overflow-hidden md:flex items-center justify-center">
           {images.map((image, index) => (
             <Link href="/portfolio" scroll={false} key={index}>
@@ -47,12 +47,12 @@ export default function Home() {
           ))}
         </div>
         <Link
-            href="/portfolio"
-            scroll={false}
-            className="text-gray-400 hover:text-white tracking-widest text-sm pb-24 hover:underline"
-          >
-            VIEW PORTFOLIO →
-          </Link>
+          href="/portfolio"
+          scroll={false}
+          className="text-gray-400 hover:text-white tracking-widest text-sm pb-24 hover:underline"
+        >
+          VIEW PORTFOLIO →
+        </Link>
       </div>
     </main>
   );
