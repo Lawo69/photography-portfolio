@@ -1,14 +1,19 @@
 import React from 'react'
-import Link from 'next/link'
+import Image from 'next/image'
+import Link from "next/link";
 
 const Navbar = () => {
   return (
-    <header className="sticky top-0 bg-black w-full z-30 flex justify-between items-center h-[90px] px-10">
-        <div className='min-w-1/3'>hm</div>
-        <div className='min-w-1/3 text-center font-medium text-lg uppercase'>Madz!</div>
-        <div className='min-w-1/3 text-right'>
-          <Link href="#" className='rounded-3xl  bg-white text-stone-700 px-3 py-2 hover:opacity-90'>Get in Touch</Link>
-        </div>
+    <header className="fixed top-0 bg-gradient-to-t from-transparent to-black w-full z-30 flex justify-center items-center h-[90px] px-10">
+      <Link href="/" scroll={false}>
+        <Image
+          src="/img/logo.png"
+          alt="Logo"
+          width={100}
+          height={100}
+          className="h-10 w-auto object-contain cursor-pointer"
+        />
+      </Link>
     </header>
   )
 }
