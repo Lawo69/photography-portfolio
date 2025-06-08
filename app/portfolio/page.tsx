@@ -1,7 +1,7 @@
 'use client';
 
-import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
-import React, { useEffect, useRef } from 'react'
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
+import React, { useEffect, useRef, useState } from 'react';
 import Masonry from 'react-masonry-css';
 import Image from 'next/image';
 import LightGalleryComponent from 'lightgallery/react';
@@ -16,44 +16,32 @@ import 'lightgallery/css/lg-thumbnail.css';
 import lgThumbnail from 'lightgallery/plugins/thumbnail';
 import lgZoom from 'lightgallery/plugins/zoom';
 
-import Img1 from '@/public/img/img-1.jpg';
-import Img2 from '@/public/img/img-2.png';
-import Img3 from '@/public/img/img-3.jpeg';
-import Img4 from '@/public/img/img-4.jpeg';
-import Img5 from '@/public/img/img-5.jpg';
+type ImageItem = {
+  _id: string;
+  title: string;
+  category: string;
+  imageUrl: string;
+  createdAt: string;
+};
 
-const tabs = [
-  {
-    key: 'all',
-    display: 'All'
-  },
-  {
-    key: 'product',
-    display: 'Product'
-  },
-  {
-    key: 'interior',
-    display: 'Interior'
-  },
-  {
-    key: 'nature',
-    display: 'Nature'
-  }
-]
-
-const images = [
-  Img1,
-  Img2,
-  Img3,
-  Img4,
-  Img5
-]
+const category = [
+  { key: 'all', display: 'All' },
+  { key: 'product', display: 'Product' },
+  { key: 'interior', display: 'Interior' },
+  { key: 'nature', display: 'Nature' }
+];
 
 const Portfolio = () => {
-  const lightboxRef = useRef<LightGallery | null>(null)
+  const [images, setImages] = useState<ImageItem[]>([]);
+  const lightboxRef = useRef<LightGallery | null>(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    fetch('/api/images')
+      .then(res => res.json())
+      .then((data: ImageItem[]) => setImages(data))
+      .catch(err => console.error('Error fetching images:', err));
   }, []);
 
   return (
@@ -61,8 +49,11 @@ const Portfolio = () => {
       <div className='relative flex flex-col items-center h-full p-10'>
         <TabGroup className='flex flex-col items-center h-full w-full'>
           <TabList className="flex flex-wrap sm:flex-nowrap items-center gap-4 sm:gap-12">
-            {tabs.map((tab) => (
-              <Tab key={tab.key} className="p-1 sm:p-2 text-sm sm:text-base focus:outline-none font-sans uppercase font-medium cursor-pointer">
+            {category.map((tab) => (
+              <Tab
+                key={tab.key}
+                className="p-1 sm:p-2 text-sm sm:text-base focus:outline-none font-sans uppercase font-medium cursor-pointer"
+              >
                 {({ selected }) => (
                   <span className={selected ? "text-white" : "text-stone-600"}>
                     {tab.display}
@@ -73,55 +64,65 @@ const Portfolio = () => {
           </TabList>
 
           <TabPanels className='w-full max-w-5xl my-6'>
-            <TabPanel>
-              <Masonry
-                breakpointCols={{
-                  default: 4,
-                  768: 2
-                }}
-                className='flex gap-5'
-                columnClassName=''
-              >
-                {images.map((image, idx) => (
-                  <Image
-                    key={image.src}
-                    src={image}
-                    alt='placeholder'
-                    className='my-5 hover:opacity-80 transition-all duration-500 cursor-pointer'
-                    placeholder='blur'
-                    onClick={() => {
-                      lightboxRef.current?.openGallery(idx);
-                    }}
-                  />
-                ))}
-              </Masonry>
+            {category.map((cat) => {
+              const filteredImages =
+                cat.key === 'all'
+                  ? images
+                  : images.filter((img) => img.category.toLowerCase() === cat.key);
 
-              <LightGalleryComponent
-                onInit={(ref) => {
-                  if (ref) {
-                    lightboxRef.current = ref.instance
-                  }
-                }}
-                speed={500}
-                plugins={[lgThumbnail, lgZoom]}
-                dynamic
-                dynamicEl={
-                  images.map(image => ({
-                    src: image.src,
-                    thumb: image.src
-                  }))
-                }
-              >
-              </LightGalleryComponent>
-            </TabPanel>
-            <TabPanel>Product</TabPanel>
-            <TabPanel>Interior</TabPanel>
-            <TabPanel>Nature</TabPanel>
+              return (
+                <TabPanel key={cat.key}>
+                  {filteredImages.length > 0 ? (
+                    <>
+                      <Masonry
+                        breakpointCols={{ default: 4, 768: 2 }}
+                        className='flex gap-5'
+                        columnClassName=''
+                      >
+                        {filteredImages.map((image, idx) => (
+                          <Image
+                            key={image._id}
+                            src={image.imageUrl}
+                            alt={image.title}
+                            width={300}
+                            height={200}
+                            className='my-5 hover:opacity-80 transition-all duration-500 cursor-pointer'
+                            onClick={() => {
+                              lightboxRef.current?.openGallery(idx);
+                            }}
+                          />
+                        ))}
+                      </Masonry>
+
+                      <LightGalleryComponent
+                        onInit={(ref) => {
+                          if (ref) {
+                            lightboxRef.current = ref.instance;
+                          }
+                        }}
+                        speed={500}
+                        plugins={[lgThumbnail, lgZoom]}
+                        dynamic
+                        dynamicEl={filteredImages.map((image) => ({
+                          src: image.imageUrl,
+                          thumb: image.imageUrl,
+                        }))}
+                      />
+                    </>
+                  ) : (
+                    <div className="text-center text-gray-500 py-10 text-lg font-medium">
+                      No images found.
+                    </div>
+                  )}
+                </TabPanel>
+              );
+            })}
           </TabPanels>
+
         </TabGroup>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Portfolio;

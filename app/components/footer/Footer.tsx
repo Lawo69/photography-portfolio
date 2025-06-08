@@ -10,7 +10,7 @@ const Footer = () => {
       <p className="mb-4 text-white text-center font-normal md:mb-0 z-10">
         &copy; {currentYear}{" "}
         <a href="#" className="hover:text-primary">
-          Snap by Madz
+          Snaps by Madz
         </a>
         . All Rights Reserved. Designed By 
         <a href="#" className="hover:text-primary"> Nezcode</a>.
