@@ -85,8 +85,13 @@ export default function UploadForm() {
         >
           <option value="">Select category</option>
           <option value="product">Product</option>
-          <option value="interior">Interior</option>
           <option value="nature">Nature</option>
+          <option value="people">People</option>
+          <option value="architecture">Architecture</option>
+          <option value="food">Food</option>
+          <option value="animal">Animal</option>
+          <option value="travel">Travel</option>
+          <option value="others">Others</option>
         </select>
 
         <button

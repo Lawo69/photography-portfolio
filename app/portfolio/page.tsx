@@ -53,7 +53,7 @@ const Portfolio = () => {
     <div className='relative grow pt-[100px] z-20'>
       <div className='relative flex flex-col items-center h-full p-10'>
         <TabGroup className='flex flex-col items-center h-full w-full'>
-          <TabList className="flex flex-wrap lg:flex-nowrap items-center gap-2 sm:gap-5">
+          <TabList className="flex flex-wrap lg:flex-nowrap items-center justify-center gap-2 sm:gap-5">
             {category.map((tab) => (
               <Tab
                 key={tab.key}
