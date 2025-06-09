@@ -2,7 +2,7 @@
 /* eslint-disable no-var */
 import { MongoClient, ServerApiVersion } from 'mongodb';
 
-const uri = process.env.MONGODB_URI!;
+const uri = 'mongodb+srv://supungunawardaname:FK6NTmXcTfuN98IW@snapsbymadz.2m1deba.mongodb.net/?retryWrites=true&w=majority&appName=SnapsbyMadz'!;
 const options = {
   serverApi: {
     version: ServerApiVersion.v1,
