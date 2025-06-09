@@ -14,7 +14,6 @@ const options = {
 let client;
 let clientPromise: Promise<MongoClient>;
 
-// ✅ Extend global type to include _mongoClientPromise
 declare global {
   var _mongoClientPromise: Promise<MongoClient> | undefined;
 }
