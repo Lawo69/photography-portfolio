@@ -27,8 +27,13 @@ type ImageItem = {
 const category = [
   { key: 'all', display: 'All' },
   { key: 'product', display: 'Product' },
-  { key: 'interior', display: 'Interior' },
-  { key: 'nature', display: 'Nature' }
+  { key: 'nature', display: 'Nature' },
+  { key: 'people', display: 'People' },
+  { key: 'food', display: 'Food' },
+  { key: 'travel', display: 'Travel' },
+  { key: 'architecture', display: 'Architecture' },
+  { key: 'animal', display: 'Animal' },
+  { key: 'others', display: 'Others' },
 ];
 
 const Portfolio = () => {
@@ -48,7 +53,7 @@ const Portfolio = () => {
     <div className='relative grow pt-[100px] z-20'>
       <div className='relative flex flex-col items-center h-full p-10'>
         <TabGroup className='flex flex-col items-center h-full w-full'>
-          <TabList className="flex flex-wrap sm:flex-nowrap items-center gap-4 sm:gap-12">
+          <TabList className="flex flex-wrap lg:flex-nowrap items-center gap-2 sm:gap-5">
             {category.map((tab) => (
               <Tab
                 key={tab.key}
@@ -77,7 +82,7 @@ const Portfolio = () => {
                       <Masonry
                         breakpointCols={{ default: 4, 768: 2 }}
                         className='flex gap-5'
-                        columnClassName=''
+                        columnClassName='masonry-column'
                       >
                         {filteredImages.map((image, idx) => (
                           <Image
