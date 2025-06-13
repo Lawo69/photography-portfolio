@@ -9,10 +9,10 @@ import { useEffect } from "react";
 const inter = Inter({ subsets: ["latin"] });
 
 const images = [
-  { src: "/img/img-1.jpg", className: "-rotate-20 bottom-15 left-20" },
-  { src: "/img/img-7.jpg", className: "-rotate-10 bottom-25 left-50" },
-  { src: "/img/img-9.jpg", className: "rotate-10 bottom-25 right-50" },
-  { src: "/img/img-1.jpg", className: "rotate-20 bottom-15 right-20" },
+  { src: "/img/img-1.jpeg", className: "-rotate-20 bottom-15 left-20" },
+  { src: "/img/img-2.jpeg", className: "-rotate-10 bottom-25 left-50" },
+  { src: "/img/img-3.jpeg", className: "rotate-10 bottom-25 right-50" },
+  { src: "/img/img-4.jpeg", className: "rotate-20 bottom-15 right-20" },
 ];
 
 export default function Home() {
